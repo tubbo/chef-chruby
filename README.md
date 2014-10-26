@@ -53,16 +53,6 @@ These Ruby versions are installed using the LWRP provided by the `ruby_build` co
 
 Ensure you set an explicit dependency on the `chruby` cookbook if you are using a wrapper cookbook.
 
-You can also use the **chruby_execute** provider to execute commands
-within chruby:
-
-```ruby
-chruby_execute 'bundle install' do
-  cwd shared_path
-  ruby_version node['app']['ruby_version']
-end
-```
-
 # Attributes
 
 - `node['chruby']['version']` - the version of Chruby to install.  Default is 0.3.4.
@@ -86,7 +76,7 @@ Builds and makes available the Ruby versions listed in the `node['chruby']['rubi
 
 # Providers
 
-### chruby_execute
+## chruby_execute
 
 Executes a command within a given Ruby version's environment.
 
@@ -94,6 +84,28 @@ Executes a command within a given Ruby version's environment.
   execute under
 - **command:** the command that will execute
 - **cwd:** changes the path the command executes in
+
+```ruby
+chruby_execute 'bundle install' do
+  cwd '/srv/app/current'
+  ruby_version '2.1.3'
+end
+```
+
+## chruby_gem_package
+
+Installs a Gem in a provided Ruby version's environment
+
+- **package_name:** the name of the gem to install
+- **version:** the version of the gem to install
+- **ruby_version:** the ruby version this gem installs under
+
+```ruby
+chruby_gem_package 'bundler' do
+  version '1.7.0'
+  ruby_version '2.1.3'
+end
+```
 
 # Author and License
 
