@@ -53,6 +53,16 @@ These Ruby versions are installed using the LWRP provided by the `ruby_build` co
 
 Ensure you set an explicit dependency on the `chruby` cookbook if you are using a wrapper cookbook.
 
+You can also use the **chruby_execute** provider to execute commands
+within chruby:
+
+```ruby
+chruby_execute 'bundle install' do
+  cwd shared_path
+  ruby_version node['app']['ruby_version']
+end
+```
+
 # Attributes
 
 - `node['chruby']['version']` - the version of Chruby to install.  Default is 0.3.4.
@@ -73,6 +83,17 @@ Installs the chruby utility, and makes it available to every shell.  If Chef was
 ## System
 
 Builds and makes available the Ruby versions listed in the `node['chruby']['rubies']` attribute, using the `ruby-build` LWRP.
+
+# Providers
+
+### chruby_execute
+
+Executes a command within a given Ruby version's environment.
+
+- **ruby_version:** configure the version of ruby this command will
+  execute under
+- **command:** the command that will execute
+- **cwd:** changes the path the command executes in
 
 # Author and License
 
