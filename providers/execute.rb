@@ -4,6 +4,7 @@ action :run do
   chruby_exec_command = "chruby-exec #{ruby_version} -- '#{command}'"
   run_as_user = new_resource.user || ENV['USER']
   run_as_group = new_resource.group || ENV['USER']
+  working_directory = new_resource.cwd || ENV['PWD']
 
   execute new_resource.name do
     cwd     working_directory
